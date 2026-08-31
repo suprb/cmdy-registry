@@ -1,0 +1,11 @@
+{
+  "manifestVersion": 1,
+  "id": "dev.termite.command-queue",
+  "name": "Command Queue",
+  "version": "1.1.0",
+  "entrypoint": "channel.py",
+  "enabled": true,
+  "capabilities": ["channels", "events.read"],
+  "description": "Bridge an explicitly configured JSON producer and consumer through cmdy's reviewed Work Inbox",
+  "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/command-queue"
+}

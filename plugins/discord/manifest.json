@@ -1,0 +1,11 @@
+{
+  "manifestVersion": 1,
+  "id": "dev.termite.discord",
+  "name": "Discord Channel",
+  "version": "1.1.0",
+  "entrypoint": "channel.py",
+  "enabled": true,
+  "capabilities": ["channels", "events.read"],
+  "description": "Routes allowlisted Discord channels through cmdy's reviewed inbox",
+  "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/discord"
+}

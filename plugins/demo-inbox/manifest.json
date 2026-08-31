@@ -1,0 +1,11 @@
+{
+  "manifestVersion": 1,
+  "id": "dev.termite.demo-inbox",
+  "name": "Demo Inbox",
+  "version": "1.1.0",
+  "entrypoint": "channel.py",
+  "enabled": true,
+  "capabilities": ["channels", "events.read"],
+  "description": "A local Receive, Route, Reply example for cmdy Channels",
+  "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/demo-inbox"
+}

@@ -1,0 +1,420 @@
+{
+  "$id": "https://raw.githubusercontent.com/suprb/cmdy-registry/main/schema/registry-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api": {
+      "const": 1
+    },
+    "entries": {
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/shader"
+          },
+          {
+            "$ref": "#/$defs/theme"
+          },
+          {
+            "$ref": "#/$defs/rig"
+          },
+          {
+            "$ref": "#/$defs/channel"
+          },
+          {
+            "$ref": "#/$defs/plugin"
+          }
+        ]
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "featured": {
+      "items": {
+        "$ref": "#/$defs/id"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "name": {
+      "const": "the cmdy marketplace"
+    }
+  },
+  "required": [
+    "api",
+    "name",
+    "featured",
+    "entries"
+  ],
+  "title": "cmdy registry v1",
+  "type": "object",
+  "$defs": {
+    "arch": {
+      "items": {
+        "enum": [
+          "arm64",
+          "x86_64"
+        ]
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "capabilities": {
+      "items": {
+        "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)*$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "channel": {
+      "additionalProperties": false,
+      "properties": {
+        "author": {
+          "$ref": "#/$defs/text"
+        },
+        "capabilities": {
+          "$ref": "#/$defs/capabilities"
+        },
+        "configuration": {
+          "$ref": "#/$defs/configuration"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "file": {
+          "pattern": "^dist/[a-z0-9][a-z0-9.-]*\\.zip$",
+          "type": "string"
+        },
+        "homepage": {
+          "pattern": "^https://github\\.com/suprb/cmdy-registry/tree/main/plugins/[a-z0-9][a-z0-9-]*$",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^dev\\.termite\\.[a-z0-9][a-z0-9-]*$",
+          "type": "string"
+        },
+        "kind": {
+          "const": "channel"
+        },
+        "license": {
+          "const": "MIT"
+        },
+        "mode": {
+          "enum": [
+            "two-way",
+            "inbound-only",
+            "read-only"
+          ]
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "sdk": {
+          "const": "v1"
+        },
+        "setup": {
+          "$ref": "#/$defs/text"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "name",
+        "description",
+        "author",
+        "license",
+        "version",
+        "file",
+        "sha256",
+        "sdk",
+        "homepage",
+        "capabilities",
+        "mode",
+        "setup",
+        "configuration"
+      ],
+      "type": "object"
+    },
+    "configuration": {
+      "additionalProperties": false,
+      "properties": {
+        "fields": {
+          "items": {
+            "$ref": "#/$defs/configurationField"
+          },
+          "maxItems": 32,
+          "type": "array"
+        },
+        "version": {
+          "const": 1
+        }
+      },
+      "required": [
+        "version",
+        "fields"
+      ],
+      "type": "object"
+    },
+    "configurationField": {
+      "additionalProperties": false,
+      "properties": {
+        "default": true,
+        "help": {
+          "maxLength": 512,
+          "type": "string"
+        },
+        "key": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$",
+          "type": "string"
+        },
+        "keychainService": {
+          "pattern": "^(?:cmdy|termite)\\.[a-z0-9][a-z0-9.-]*$",
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "placeholder": {
+          "maxLength": 512,
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "type": {
+          "enum": [
+            "text",
+            "secret",
+            "boolean",
+            "integer",
+            "string-list",
+            "integer-list",
+            "path",
+            "json"
+          ]
+        }
+      },
+      "required": [
+        "key",
+        "label",
+        "type",
+        "required"
+      ],
+      "type": "object"
+    },
+    "id": {
+      "maxLength": 180,
+      "pattern": "^(?:cmdy/[a-z0-9][a-z0-9-]*|dev\\.termite\\.[a-z0-9][a-z0-9-]*)$",
+      "type": "string"
+    },
+    "path": {
+      "minLength": 1,
+      "not": {
+        "pattern": "(^/|^~|(^|/)\\.\\.(/|$)|(^|/)\\.(/|$)|//|\\\\)"
+      },
+      "type": "string"
+    },
+    "plugin": {
+      "additionalProperties": false,
+      "properties": {
+        "arch": {
+          "$ref": "#/$defs/arch"
+        },
+        "author": {
+          "$ref": "#/$defs/text"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "file": {
+          "pattern": "^dist/[a-z0-9][a-z0-9.-]*\\.zip$",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^dev\\.termite\\.[a-z0-9][a-z0-9-]*$",
+          "type": "string"
+        },
+        "kind": {
+          "const": "plugin"
+        },
+        "license": {
+          "const": "MIT"
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "sdk": {
+          "const": "v1"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "name",
+        "description",
+        "author",
+        "license",
+        "version",
+        "file",
+        "sha256",
+        "sdk",
+        "arch"
+      ],
+      "type": "object"
+    },
+    "rig": {
+      "additionalProperties": false,
+      "properties": {
+        "author": {
+          "$ref": "#/$defs/text"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "file": {
+          "pattern": "^rigs/cmdy/[a-z0-9][a-z0-9-]*\\.conf$",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^cmdy/[a-z0-9][a-z0-9-]*$",
+          "type": "string"
+        },
+        "kind": {
+          "const": "rig"
+        },
+        "license": {
+          "const": "MIT"
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "name",
+        "description",
+        "author",
+        "license",
+        "version",
+        "file"
+      ],
+      "type": "object"
+    },
+    "shader": {
+      "additionalProperties": false,
+      "properties": {
+        "author": {
+          "$ref": "#/$defs/text"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "file": {
+          "pattern": "^shaders/cmdy/[a-z0-9][a-z0-9-]*\\.metal$",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^cmdy/[a-z0-9][a-z0-9-]*$",
+          "type": "string"
+        },
+        "kind": {
+          "const": "shader"
+        },
+        "license": {
+          "const": "MIT"
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "name",
+        "description",
+        "author",
+        "license",
+        "version",
+        "file"
+      ],
+      "type": "object"
+    },
+    "sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "text": {
+      "maxLength": 1024,
+      "minLength": 1,
+      "type": "string"
+    },
+    "theme": {
+      "additionalProperties": false,
+      "properties": {
+        "author": {
+          "$ref": "#/$defs/text"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "file": {
+          "pattern": "^themes/cmdy/[a-z0-9][a-z0-9-]*\\.json$",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^cmdy/[a-z0-9][a-z0-9-]*$",
+          "type": "string"
+        },
+        "kind": {
+          "const": "theme"
+        },
+        "license": {
+          "const": "MIT"
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "name",
+        "description",
+        "author",
+        "license",
+        "version",
+        "file"
+      ],
+      "type": "object"
+    },
+    "version": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "type": "string"
+    }
+  }
+}
