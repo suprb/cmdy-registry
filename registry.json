@@ -1259,7 +1259,7 @@
       "author": "cmdy",
       "license": "MIT",
       "version": "2.2.0",
-      "url": "https://github.com/suprb/cmdy/releases/download/v1.0.4/chromium-2.2.0.cmdyext",
+      "url": "https://github.com/suprb/cmdy/releases/download/v1.0.5/chromium-2.2.0.cmdyext",
       "sha256": "abe8c0173c44cb5524f7a23703ba73c025e26636b543f2222d8eb0591ae7e48e",
       "sdk": "v1",
       "arch": [
