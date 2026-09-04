@@ -1258,9 +1258,9 @@
       "description": "Chromium browsing in a real cmdy window split, controlled by people and agents",
       "author": "cmdy",
       "license": "MIT",
-      "version": "2.1.0",
-      "url": "https://github.com/suprb/cmdy/releases/download/v1.0.3/chromium-2.1.0.cmdyext",
-      "sha256": "8a9de94f37984fa8773dfb6c22037998c9e33c730980bdb93126b33c1beb053f",
+      "version": "2.2.0",
+      "url": "https://github.com/suprb/cmdy/releases/download/v1.0.4/chromium-2.2.0.cmdyext",
+      "sha256": "abe8c0173c44cb5524f7a23703ba73c025e26636b543f2222d8eb0591ae7e48e",
       "sdk": "v1",
       "arch": [
         "arm64"
