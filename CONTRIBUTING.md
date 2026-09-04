@@ -7,7 +7,8 @@ auditable, and reproducible.
 
 1. Do not include credentials, private URLs, generated caches, symlinks, or
    local `config.json` files.
-2. Do not add Chromium or a Chromium payload.
+2. Keep packages larger than GitHub's normal file limit in an immutable HTTPS
+   release asset and pin that `.cmdyext` URL and its exact SHA-256.
 3. Preserve published `dev.termite.*` package IDs and compatibility-facing
    Keychain/environment identifiers unless a separately reviewed migration is
    available.
@@ -31,7 +32,7 @@ Also inspect the staged diff and confirm that every archive change is expected:
 ```sh
 git diff --check
 git diff --stat
-shasum -a 256 dist/*.zip
+shasum -a 256 dist/*.cmdyext
 ```
 
 The validator requires the governed file set (`dist`, `shaders`, `themes`, and

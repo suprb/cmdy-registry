@@ -1,11 +1,11 @@
 #!/bin/bash
 # Create a deterministic-clean Marketplace archive from one Extension folder.
 #
-#   tools/pack-plugin.sh /path/to/extension dist/extension-1.0.0.zip
+#   tools/pack-plugin.sh /path/to/extension dist/extension-1.0.0.cmdyext
 set -euo pipefail
 
 if [ "$#" -ne 2 ]; then
-  echo "usage: $0 <extension-directory> <output.zip>" >&2
+  echo "usage: $0 <extension-directory> <output.cmdyext>" >&2
   exit 64
 fi
 
@@ -28,8 +28,8 @@ OUTPUT_DIRECTORY=$(cd "$(dirname "$OUTPUT_INPUT")" && pwd -P)
 OUTPUT="$OUTPUT_DIRECTORY/$(basename "$OUTPUT_INPUT")"
 
 case "$OUTPUT" in
-  *.zip) ;;
-  *) echo "output must end in .zip: $OUTPUT" >&2; exit 1 ;;
+  *.cmdyext) ;;
+  *) echo "output must end in .cmdyext: $OUTPUT" >&2; exit 1 ;;
 esac
 
 STAGING_ROOT=$(mktemp -d "${TMPDIR:-/tmp}/cmdy-registry-pack.XXXXXX")

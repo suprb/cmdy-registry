@@ -85,7 +85,7 @@
           "$ref": "#/$defs/text"
         },
         "file": {
-          "pattern": "^dist/[a-z0-9][a-z0-9.-]*\\.zip$",
+          "pattern": "^dist/[a-z0-9][a-z0-9.-]*\\.cmdyext$",
           "type": "string"
         },
         "homepage": {
@@ -225,6 +225,18 @@
     },
     "plugin": {
       "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "file"
+          ]
+        },
+        {
+          "required": [
+            "url"
+          ]
+        }
+      ],
       "properties": {
         "arch": {
           "$ref": "#/$defs/arch"
@@ -236,7 +248,7 @@
           "$ref": "#/$defs/text"
         },
         "file": {
-          "pattern": "^dist/[a-z0-9][a-z0-9.-]*\\.zip$",
+          "pattern": "^dist/[a-z0-9][a-z0-9.-]*\\.cmdyext$",
           "type": "string"
         },
         "id": {
@@ -258,6 +270,10 @@
         "sha256": {
           "$ref": "#/$defs/sha256"
         },
+        "url": {
+          "pattern": "^https://[^?#]+\\.cmdyext$",
+          "type": "string"
+        },
         "version": {
           "$ref": "#/$defs/version"
         }
@@ -270,7 +286,6 @@
         "author",
         "license",
         "version",
-        "file",
         "sha256",
         "sdk",
         "arch"

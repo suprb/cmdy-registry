@@ -37,21 +37,19 @@
     "themes/cmdy/green.json": "7b70c8df714e378a0a07c76b553e639e01ed7de2ddebbf8659a3a4eb20a06232",
     "themes/cmdy/cmdy.json": "d69fe0b82a295615ef7b5d96a44cef988cbc04619eb30bfc3a4ca5ef8471b70f"
   },
-  "entryCount": 59,
-  "excludedIDs": [
-    "dev.termite.chromium"
-  ],
+  "entryCount": 60,
+  "excludedIDs": [],
   "kindCounts": {
     "channel": 19,
-    "plugin": 4,
+    "plugin": 5,
     "rig": 2,
     "shader": 30,
     "theme": 4
   },
   "legacySourceCommit": "8e8b9f2d3c561357a40624dfb837d923df971007",
   "preambleSha256": "8bc0f2c5e6da8e9425a4134dc612e900c7ce3e6a4349049ec8653c24449e5a73",
-  "registrySha256": "8d8f44fe5b959167905b054fd9027e3e342fc95d6cf4d2986a62a5257a747146",
-  "schemaSha256": "cfed34ebbade4eb4259c9ce4772d0fbd5c74c88d6d04714dbdf3d7c7ceb8afb4",
+  "registrySha256": "2aa7a0b57415bd6385c00009981e677103f86cbe4500cc27b0d8e7ac315fcaa3",
+  "schemaSha256": "484269aee0334d0bdd7e9d2cce526a616db47604e47f421f5eec9e02a834bcc7",
   "schemaVersion": 1,
   "sourceSnapshotSha256": "ec1d22e8d5704ba52da6470a6e38bee89a3916b97a23203b54d68f4273d78645"
 }
