@@ -14,6 +14,8 @@ import stat
 import subprocess
 import sys
 import tempfile
+import urllib.parse
+import urllib.request
 import zipfile
 from pathlib import Path, PurePosixPath
 
@@ -23,14 +25,14 @@ CONTENT_KINDS = ("shader", "theme", "rig")
 NATIVE_KINDS = ("channel", "plugin")
 EXPECTED_TOP_KEYS = {"api", "entries", "featured", "name"}
 COMMON_KEYS = {
-    "author", "description", "file", "id", "kind", "license", "name",
+    "author", "description", "id", "kind", "license", "name",
     "version",
 }
 EXPECTED_ENTRY_KEYS = {
-    "shader": COMMON_KEYS,
-    "theme": COMMON_KEYS,
-    "rig": COMMON_KEYS,
-    "channel": COMMON_KEYS | {
+    "shader": COMMON_KEYS | {"file"},
+    "theme": COMMON_KEYS | {"file"},
+    "rig": COMMON_KEYS | {"file"},
+    "channel": COMMON_KEYS | {"file"} | {
         "capabilities", "configuration", "homepage", "mode", "sdk",
         "setup", "sha256",
     },
@@ -76,6 +78,7 @@ SOURCE_TEXT_SUFFIXES = {
 MAX_ARCHIVE_FILES = 256
 MAX_ARCHIVE_FILE_BYTES = 256 * 1024 * 1024
 MAX_ARCHIVE_TOTAL_BYTES = 512 * 1024 * 1024
+MAX_ARCHIVE_DOWNLOAD_BYTES = 512 * 1024 * 1024
 SHADER_ABI_PROBE = """
 struct CmdyRasterOut {
     float4 position [[position]];
@@ -183,6 +186,22 @@ def safe_relative(value: object, label: str) -> str:
         part in ("", ".", "..") for part in pure.parts
     ):
         raise RegistryError(f"{label} is not a safe relative path: {value!r}")
+    return value
+
+
+def safe_external_archive_url(value: object, expected_name: str, label: str) -> str:
+    if not isinstance(value, str) or not value or any(ord(c) < 32 for c in value):
+        raise RegistryError(f"{label} must be a nonempty HTTPS URL")
+    parsed = urllib.parse.urlsplit(value)
+    if (
+        parsed.scheme != "https" or not parsed.hostname
+        or parsed.username is not None or parsed.password is not None
+        or parsed.query or parsed.fragment
+        or parsed.path.rsplit("/", 1)[-1] != expected_name
+    ):
+        raise RegistryError(
+            f"{label} must be an HTTPS URL ending in /{expected_name} without credentials, query, or fragment"
+        )
     return value
 
 
@@ -367,7 +386,13 @@ class Validator:
         if kind not in KINDS:
             raise RegistryError(f"{label}: unsupported kind {kind!r}")
         assert isinstance(kind, str)
-        exact_keys(entry, EXPECTED_ENTRY_KEYS[kind], label)
+        expected_keys = EXPECTED_ENTRY_KEYS[kind]
+        if kind == "plugin":
+            locations = set(entry) & {"file", "url"}
+            if len(locations) != 1:
+                raise RegistryError(f"{label} must declare exactly one of file or url")
+            expected_keys = expected_keys | locations
+        exact_keys(entry, expected_keys, label)
         identifier = nonempty_text(entry["id"], f"{label}.id", 180)
         if identifier in self.ids:
             raise RegistryError(f"duplicate entry id: {identifier}")
@@ -378,11 +403,12 @@ class Validator:
             raise RegistryError(f"{label}.license must be MIT for the launch catalog")
         if not isinstance(entry["version"], str) or not SEMVER_RE.fullmatch(entry["version"]):
             raise RegistryError(f"{label}.version must be x.y.z")
-        relative = safe_relative(entry["file"], f"{label}.file")
-        real_file(self.root / relative, self.root, f"{label}.file")
-        if relative in self.expected_files:
-            raise RegistryError(f"{label}.file is referenced by more than one entry")
-        self.expected_files.add(relative)
+        if "file" in entry:
+            relative = safe_relative(entry["file"], f"{label}.file")
+            real_file(self.root / relative, self.root, f"{label}.file")
+            if relative in self.expected_files:
+                raise RegistryError(f"{label}.file is referenced by more than one entry")
+            self.expected_files.add(relative)
         if kind in CONTENT_KINDS:
             self.check_content(entry, label)
         else:
@@ -487,16 +513,58 @@ class Validator:
         if not isinstance(digest, str) or not SHA256_RE.fullmatch(digest):
             raise RegistryError(f"{label}.sha256 must be lowercase SHA-256")
         slug = identifier.removeprefix("dev.termite.")
-        expected_file = f"dist/{slug}-{entry['version']}.zip"
-        if entry["file"] != expected_file:
-            raise RegistryError(f"{label}.file must be {expected_file}")
-        path = self.root / expected_file
+        archive_name = f"{slug}-{entry['version']}.cmdyext"
+        expected_file = f"dist/{archive_name}"
+        if "file" in entry:
+            if entry["file"] != expected_file:
+                raise RegistryError(f"{label}.file must be {expected_file}")
+            path = self.root / expected_file
+            self.check_native_archive(entry, path, digest, label)
+        else:
+            safe_external_archive_url(entry.get("url"), archive_name, f"{label}.url")
+            override = os.environ.get("CMDY_REGISTRY_EXTERNAL_ASSET_DIR")
+            if override:
+                root = Path(override).expanduser().resolve()
+                path = root / archive_name
+                real_file(path, root, f"{label}.url override")
+                self.check_native_archive(entry, path, digest, label)
+            else:
+                with tempfile.TemporaryDirectory(prefix="cmdy-registry-download-") as temp:
+                    path = Path(temp) / archive_name
+                    self.download_archive(str(entry["url"]), path, label)
+                    self.check_native_archive(entry, path, digest, label)
+
+    def download_archive(self, url: str, path: Path, label: str) -> None:
+        request = urllib.request.Request(
+            url, headers={"User-Agent": "cmdy-registry-validator/1"})
+        try:
+            with urllib.request.urlopen(request, timeout=60) as response, path.open("wb") as output:
+                if urllib.parse.urlsplit(response.geturl()).scheme != "https":
+                    raise RegistryError(f"{label} archive redirected away from HTTPS")
+                total = 0
+                while True:
+                    chunk = response.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    total += len(chunk)
+                    if total > MAX_ARCHIVE_DOWNLOAD_BYTES:
+                        raise RegistryError(f"{label} archive download exceeds 512 MiB")
+                    output.write(chunk)
+        except RegistryError:
+            raise
+        except Exception as error:
+            raise RegistryError(f"{label} archive download failed: {error}") from error
+
+    def check_native_archive(
+        self, entry: dict[str, object], path: Path, digest: str, label: str
+    ) -> None:
         actual = sha256_file(path)
         if actual != digest:
             raise RegistryError(f"{label} archive SHA-256 is {actual}, expected {digest}")
         if entry["kind"] == "plugin":
             exact_string_list(entry["arch"], f"{label}.arch", allowed=ARCHITECTURES)
         else:
+            slug = str(entry["id"]).removeprefix("dev.termite.")
             self.check_channel_metadata(entry, label, slug)
         self.check_archive(entry, path, label)
         self.archive_count += 1
@@ -742,8 +810,8 @@ class Validator:
         if lock["kindCounts"] != counts:
             raise RegistryError("registry lock kindCounts differ")
         excluded = lock["excludedIDs"]
-        if excluded != ["dev.termite.chromium"]:
-            raise RegistryError("registry lock must explicitly exclude Chromium")
+        if excluded != []:
+            raise RegistryError("registry lock excludedIDs must be empty")
         if any(value in self.ids for value in excluded):
             raise RegistryError("an explicitly excluded registry ID is present")
 

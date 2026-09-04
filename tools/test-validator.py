@@ -67,6 +67,39 @@ class ValidatorTests(unittest.TestCase):
             "shaders/cmdy/drift.metal",
         )
 
+    def test_external_archive_url_requires_safe_cmdyext_location(self) -> None:
+        expected = "browser-2.1.0.cmdyext"
+        valid = f"https://example.com/releases/{expected}"
+        self.assertEqual(
+            validator.safe_external_archive_url(valid, expected, "fixture"), valid
+        )
+        for value in (
+            f"http://example.com/{expected}",
+            f"https://user@example.com/{expected}",
+            f"https://example.com/{expected}?download=1",
+            "https://example.com/other.cmdyext",
+        ):
+            with self.subTest(value=value):
+                with self.assertRaises(validator.RegistryError):
+                    validator.safe_external_archive_url(value, expected, "fixture")
+
+    def test_plugin_requires_exactly_one_archive_location(self) -> None:
+        entry = {
+            "arch": ["arm64"], "author": "cmdy", "description": "fixture",
+            "id": "dev.termite.fixture", "kind": "plugin", "license": "MIT",
+            "name": "Fixture", "sdk": "v1", "sha256": "a" * 64,
+            "version": "1.0.0",
+        }
+        checker = validator.Validator(Path("."))
+        with self.assertRaisesRegex(validator.RegistryError, "exactly one"):
+            checker.check_entry(entry, 0)
+        with self.assertRaisesRegex(validator.RegistryError, "exactly one"):
+            checker.check_entry(dict(
+                entry,
+                file="dist/fixture-1.0.0.cmdyext",
+                url="https://example.com/fixture-1.0.0.cmdyext",
+            ), 0)
+
     def test_duplicate_json_key_is_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "duplicate.json"

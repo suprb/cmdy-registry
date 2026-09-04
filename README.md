@@ -7,21 +7,24 @@ connectors, and native Extensions.
 native archive is named there, native archives are pinned by SHA-256, and
 `registry-lock.json` binds the audited launch snapshot and shader contract.
 Validation is fail-closed: unlisted governed files, unsafe archives, retired
-shader symbols, symlinks, secret-like example values, and Chromium all fail.
+shader symbols, symlinks, secret-like example values, and unpinned URLs all fail.
 
 ## Catalog
 
-The launch snapshot contains 59 entries:
+The catalog contains 60 entries:
 
 | Kind | Count | Location |
 |---|---:|---|
 | Shader | 30 | `shaders/cmdy/*.metal` |
 | Theme | 4 | `themes/cmdy/*.json` |
 | Rig | 2 | `rigs/cmdy/*.conf` |
-| Channel | 19 | `plugins/*` source and `dist/*.zip` archives |
-| Extension | 4 | `dist/*.zip` archives |
+| Channel | 19 | `plugins/*` source and `dist/*.cmdyext` packages |
+| Extension | 5 | `dist/*.cmdyext` packages or pinned release assets |
 
-Chromium is intentionally not part of this registry.
+Every native package uses the same installable `.cmdyext` format. Browser is a
+normal removable Extension whose small activation package is pinned to the cmdy
+GitHub Release by URL and SHA-256; Chromium itself stays sealed in the notarized
+cmdy app.
 
 ## Validate
 

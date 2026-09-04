@@ -6,6 +6,7 @@
     "cmdy/waterline",
     "cmdy/cmdy",
     "dev.termite.demo-inbox",
+    "dev.termite.chromium",
     "dev.termite.detox"
   ],
   "entries": [
@@ -400,7 +401,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/apple-reminders",
-      "file": "dist/apple-reminders-1.1.0.zip",
+      "file": "dist/apple-reminders-1.1.0.cmdyext",
       "sha256": "8a88c72fa444e0aa5f38585bb1be8804e5e5f518f326c15d46cbbb3ecc8117f1",
       "sdk": "v1",
       "capabilities": [
@@ -445,7 +446,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/clipboard-inbox",
-      "file": "dist/clipboard-inbox-1.1.0.zip",
+      "file": "dist/clipboard-inbox-1.1.0.cmdyext",
       "sha256": "44ec2617865ea12ede959351d08c9439da1e928ffaed7029c4b761efd78b7feb",
       "sdk": "v1",
       "capabilities": [
@@ -490,7 +491,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/command-queue",
-      "file": "dist/command-queue-1.1.0.zip",
+      "file": "dist/command-queue-1.1.0.cmdyext",
       "sha256": "b8f1a1cf92629dad08edf88bbbea86ce6acaa7dbae86fbafa14c6e3248ea09b7",
       "sdk": "v1",
       "capabilities": [
@@ -513,7 +514,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/demo-inbox",
-      "file": "dist/demo-inbox-1.1.0.zip",
+      "file": "dist/demo-inbox-1.1.0.cmdyext",
       "sha256": "4c804a403d81c335c3bd4cf76addd04ada0ffd48d809da8329571d69cca0cdd1",
       "sdk": "v1",
       "capabilities": [
@@ -558,7 +559,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/discord",
-      "file": "dist/discord-1.1.0.zip",
+      "file": "dist/discord-1.1.0.cmdyext",
       "sha256": "cd0e05766bcd5e281ff3436f412f95c59dbb3bf0dc05faf187c4da1ca10fd9b0",
       "sdk": "v1",
       "capabilities": [
@@ -603,7 +604,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/folder-drop",
-      "file": "dist/folder-drop-1.1.0.zip",
+      "file": "dist/folder-drop-1.1.0.cmdyext",
       "sha256": "0de602e7f7d6839826e5d59e47504a3c1054ce16ed44dfe61c14d1ccfd5ddaa6",
       "sdk": "v1",
       "capabilities": [
@@ -648,7 +649,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/git-watch",
-      "file": "dist/git-watch-1.1.0.zip",
+      "file": "dist/git-watch-1.1.0.cmdyext",
       "sha256": "b9e6a7a4b66f30ce2663acdf7457ba40044bc341a589b1c1e7d52571d8da93cf",
       "sdk": "v1",
       "capabilities": [
@@ -692,7 +693,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/github-issues",
-      "file": "dist/github-issues-1.1.0.zip",
+      "file": "dist/github-issues-1.1.0.cmdyext",
       "sha256": "ef76507f4fe32c3efb41a9dbbf1565ee93a2daf108d512e418404120840800d9",
       "sdk": "v1",
       "capabilities": [
@@ -773,7 +774,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/imap-mail",
-      "file": "dist/imap-mail-1.1.0.zip",
+      "file": "dist/imap-mail-1.1.0.cmdyext",
       "sha256": "d0d7a58b2ab861e72a2bd197108d78624c48fd6dbeac341cfd19b42705bf6630",
       "sdk": "v1",
       "capabilities": [
@@ -818,7 +819,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/imessage",
-      "file": "dist/imessage-1.1.0.zip",
+      "file": "dist/imessage-1.1.0.cmdyext",
       "sha256": "65b67e28157cff231256723d9b6353ff6d8ee95c08aa6b74eb3ac6857413f40c",
       "sdk": "v1",
       "capabilities": [
@@ -870,7 +871,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/jira",
-      "file": "dist/jira-1.1.0.zip",
+      "file": "dist/jira-1.1.0.cmdyext",
       "sha256": "2c644d8788ba61e39f4a77e51ddbb41d67716d5f453bd93936c8b0c0dd3f7655",
       "sdk": "v1",
       "capabilities": [
@@ -914,7 +915,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/linear",
-      "file": "dist/linear-1.1.0.zip",
+      "file": "dist/linear-1.1.0.cmdyext",
       "sha256": "b37e49b54a6c4368d14098f014de75196bffddcb51c972d771a83fd16d2e599a",
       "sdk": "v1",
       "capabilities": [
@@ -959,7 +960,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/mastodon",
-      "file": "dist/mastodon-1.1.0.zip",
+      "file": "dist/mastodon-1.1.0.cmdyext",
       "sha256": "4d4d4e66eba05d5230973c685ecb6d7a3dfb9263ac00bc68e5b2d58fc6309f45",
       "sdk": "v1",
       "capabilities": [
@@ -1011,7 +1012,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/matrix",
-      "file": "dist/matrix-1.1.0.zip",
+      "file": "dist/matrix-1.1.0.cmdyext",
       "sha256": "75e9eae67c945f9cf26cd5ebe08ea1e1891ee67e86a9757adc1fde8a0fd5405f",
       "sdk": "v1",
       "capabilities": [
@@ -1063,7 +1064,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/ntfy",
-      "file": "dist/ntfy-1.1.0.zip",
+      "file": "dist/ntfy-1.1.0.cmdyext",
       "sha256": "b44c57a3b80c0a18fe353531444aa55c32964b5ecf2547b596f3c78237f0215a",
       "sdk": "v1",
       "capabilities": [
@@ -1101,7 +1102,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/rss-feed",
-      "file": "dist/rss-feed-1.1.0.zip",
+      "file": "dist/rss-feed-1.1.0.cmdyext",
       "sha256": "b2d3784f45b2fee516d03b21e84d702c74e4dc5c7563825b4cb013d71d791218",
       "sdk": "v1",
       "capabilities": [
@@ -1145,7 +1146,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/slack",
-      "file": "dist/slack-1.1.0.zip",
+      "file": "dist/slack-1.1.0.cmdyext",
       "sha256": "5a43fc3928249e01232d9f8cb8a62df4fde812bb9d26a8a4a5234c87cb2b8c6a",
       "sdk": "v1",
       "capabilities": [
@@ -1190,7 +1191,7 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/telegram",
-      "file": "dist/telegram-1.1.0.zip",
+      "file": "dist/telegram-1.1.0.cmdyext",
       "sha256": "e25cad514b5c675239182eb8510de5afd3444403137c6178918043d1522fd092",
       "sdk": "v1",
       "capabilities": [
@@ -1242,12 +1243,27 @@
       "license": "MIT",
       "version": "1.1.0",
       "homepage": "https://github.com/suprb/cmdy-registry/tree/main/plugins/webhook-inbox",
-      "file": "dist/webhook-inbox-1.1.0.zip",
+      "file": "dist/webhook-inbox-1.1.0.cmdyext",
       "sha256": "8ecbcd335dc359970cf2f80b3b440079cbbcda708fdcf411a569b08b85c1a116",
       "sdk": "v1",
       "capabilities": [
         "channels",
         "events.read"
+      ]
+    },
+    {
+      "kind": "plugin",
+      "id": "dev.termite.chromium",
+      "name": "Browser",
+      "description": "Chromium browsing in a real cmdy window split, controlled by people and agents",
+      "author": "cmdy",
+      "license": "MIT",
+      "version": "2.1.0",
+      "url": "https://github.com/suprb/cmdy/releases/download/v1.0.3/chromium-2.1.0.cmdyext",
+      "sha256": "8a9de94f37984fa8773dfb6c22037998c9e33c730980bdb93126b33c1beb053f",
+      "sdk": "v1",
+      "arch": [
+        "arm64"
       ]
     },
     {
@@ -1258,7 +1274,7 @@
       "author": "cmdy",
       "license": "MIT",
       "version": "1.1.0",
-      "file": "dist/detox-1.1.0.zip",
+      "file": "dist/detox-1.1.0.cmdyext",
       "sha256": "69b86bd79956e94be7452493e1141066b73453118b9b9b634fb0ddc01cfef091",
       "sdk": "v1",
       "arch": [
@@ -1273,7 +1289,7 @@
       "author": "cmdy",
       "license": "MIT",
       "version": "1.2.0",
-      "file": "dist/bridge-1.2.0.zip",
+      "file": "dist/bridge-1.2.0.cmdyext",
       "sha256": "6b2b1333c3be435e2a7546798f1e871f4b8901208b0eb81e7a6ca9a7362c2915",
       "sdk": "v1",
       "arch": [
@@ -1288,7 +1304,7 @@
       "author": "cmdy",
       "license": "MIT",
       "version": "1.1.0",
-      "file": "dist/sim-1.1.0.zip",
+      "file": "dist/sim-1.1.0.cmdyext",
       "sha256": "d45e0f6389767b2e0b8311aac39328da4897222eb2ece881e320cec4ac78280c",
       "sdk": "v1",
       "arch": [
@@ -1303,7 +1319,7 @@
       "author": "cmdy",
       "license": "MIT",
       "version": "1.0.0",
-      "file": "dist/swarm-1.0.0.zip",
+      "file": "dist/swarm-1.0.0.cmdyext",
       "sha256": "dfc51ac1db56c84905061964a859950fe555583dfd67cac4754e04f13c8f5fdc",
       "sdk": "v1",
       "arch": [
