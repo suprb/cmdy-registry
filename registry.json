@@ -1259,8 +1259,8 @@
       "author": "cmdy",
       "license": "MIT",
       "version": "2.2.0",
-      "url": "https://github.com/suprb/cmdy/releases/download/v1.0.5/chromium-2.2.0.cmdyext",
-      "sha256": "abe8c0173c44cb5524f7a23703ba73c025e26636b543f2222d8eb0591ae7e48e",
+      "url": "https://github.com/suprb/cmdy/releases/download/v1.0.6/chromium-2.2.0.cmdyext",
+      "sha256": "18ead98ed858dec78b8928a68a84f5ddd75414da9314cdea9c5d3012a7e78e1e",
       "sdk": "v1",
       "arch": [
         "arm64"
